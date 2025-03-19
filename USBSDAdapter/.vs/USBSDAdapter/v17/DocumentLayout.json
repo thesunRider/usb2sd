@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\",
+  "WorkspaceRootPath": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|c:\\users\\surya\\source\\repos\\usbsdadapter\\usbsdadapter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|c:\\users\\surya\\documents\\projects\\electronics\\usbsdadapter\\usbsdadapter\\usb2sd\\usbsdadapter\\usbsdadapter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|solutionrelative:usbsdadapter\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|c:\\users\\surya\\source\\repos\\usbsdadapter\\usbsdadapter\\vdisk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|c:\\users\\surya\\documents\\projects\\electronics\\usbsdadapter\\usbsdadapter\\usb2sd\\usbsdadapter\\usbsdadapter\\vdisk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|solutionrelative:usbsdadapter\\vdisk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -24,24 +24,23 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Vdisk.cs",
-              "DocumentMoniker": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\Vdisk.cs",
+              "DocumentMoniker": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\Vdisk.cs",
               "RelativeDocumentMoniker": "USBSDAdapter\\Vdisk.cs",
-              "ToolTip": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\Vdisk.cs",
+              "ToolTip": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\Vdisk.cs",
               "RelativeToolTip": "USBSDAdapter\\Vdisk.cs",
               "ViewState": "AgIAAEQAAAAAAAAAAAAgwFIAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T17:58:55.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-15T17:58:55.596Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\Program.cs",
               "RelativeDocumentMoniker": "USBSDAdapter\\Program.cs",
-              "ToolTip": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\Program.cs",
+              "ToolTip": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\Program.cs",
               "RelativeToolTip": "USBSDAdapter\\Program.cs",
-              "ViewState": "AgIAAE8BAAAAAAAAAAAvwFsBAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAEYBAAAAAAAAAAAvwFcBAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-14T04:38:11.507Z",
               "EditorCaption": ""

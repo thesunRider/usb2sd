@@ -2690,11 +2690,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
+      "projectUniqueName": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
       "projectName": "USBSDAdapter",
-      "projectPath": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
+      "projectPath": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
       "packagesPath": "C:\\Users\\Surya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\obj\\publish\\win-x86\\",
+      "outputPath": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\obj\\publish\\win-x86\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Users\\Surya\\Documents\\VSShared\\NuGetPackages"

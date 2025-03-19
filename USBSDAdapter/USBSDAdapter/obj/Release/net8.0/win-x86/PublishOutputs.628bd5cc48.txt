@@ -1,0 +1,2 @@
+C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\USBSDAdapter\USBSDAdapter\bin\Release\net8.0\publish\win-x86\USBSDAdapter.pdb
+C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\USBSDAdapter\USBSDAdapter\bin\Release\net8.0\publish\win-x86\USBSDAdapter.exe

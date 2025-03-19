@@ -341,7 +341,7 @@ class USBSDAdapter
             foreach (var item in filesizeList)
             {
                 if (item.size < 5) continue;
-                if (!((item.name).EndsWith(".csv", StringComparison.OrdinalIgnoreCase))) continue; //remove when ready
+                //if (!((item.name).EndsWith(".csv", StringComparison.OrdinalIgnoreCase))) continue; //remove when ready
                 Console.WriteLine($"Pulling Filesize: {item.size} Bytes, FileName: {item.name}");
                 byte[] data_buffer = get_sdcard_filedata(item.name, item.size);
                 File.WriteAllBytes(mount_point + ":\\" + item.name, data_buffer);
