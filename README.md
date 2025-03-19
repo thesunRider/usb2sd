@@ -52,8 +52,6 @@ https://github.com/user-attachments/assets/e09464e0-bb34-4e84-815c-b154b5495770
 ## License
 This project is open-source. Feel free to contribute and improve performance!
 
-## Credits
-Developed by [Your Name]. Contributions and feedback are welcome!
 
 ---
 For further assistance or issues, please open an issue in the repository.
