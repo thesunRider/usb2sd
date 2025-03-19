@@ -1,0 +1,91 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
+        "projectName": "USBSDAdapter",
+        "projectPath": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
+        "packagesPath": "C:\\Users\\Surya\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Surya\\source\\repos\\USBSDAdapter\\USBSDAdapter\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Users\\Surya\\Documents\\VSShared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Surya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.200"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "System.IO": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "System.IO.Ports": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "System.Management": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "runtime.any.System.IO": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
