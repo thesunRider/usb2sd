@@ -20,8 +20,10 @@ USB2SD is a USB-to-SD card library for Arduino (UNO, Nano, Mega) that enables mo
 
 ## Installation
 ### Arduino Setup
-1. Connect an SD card module to your Arduino.
-2. Upload the provided `USB2SD` sketch to your Arduino using the Arduino IDE.
+1. Install SDFat 2.3.0 or Higher
+1. Set CS PIN of Sdcard correctly on the sketch
+2. Wire Default MOSI,MISO and SCK pins to the Sdcard
+3. Upload the provided `USB2SD` sketch to your Arduino using the Arduino IDE.
 
 ### Windows Application Setup
 1. Download the `USB2SdAdapter.exe` file from the **Release** page.

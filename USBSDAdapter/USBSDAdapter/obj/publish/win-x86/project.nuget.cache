@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "wSridI7e6SQ=",
+  "dgSpecHash": "Di/2j7I3lBA=",
   "success": true,
   "projectFilePath": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\USBSDAdapter.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Surya\\.nuget\\packages\\commandlineparser\\2.9.1\\commandlineparser.2.9.1.nupkg.sha512",
     "C:\\Users\\Surya\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.13\\microsoft.net.illink.tasks.8.0.13.nupkg.sha512",
     "C:\\Users\\Surya\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "C:\\Users\\Surya\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",

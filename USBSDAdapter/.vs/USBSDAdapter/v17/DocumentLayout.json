@@ -9,6 +9,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|c:\\users\\surya\\documents\\projects\\electronics\\usbsdadapter\\usbsdadapter\\usb2sd\\usbsdadapter\\usbsdadapter\\vdisk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|solutionrelative:usbsdadapter\\vdisk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|c:\\users\\surya\\documents\\projects\\electronics\\usbsdadapter\\usbsdadapter\\usb2sd\\usbsdadapter\\usbsdadapter\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{CBD75981-053C-46A2-8C2D-43C7399D0B85}|USBSDAdapter\\USBSDAdapter.csproj|solutionrelative:usbsdadapter\\app.manifest||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "app.manifest",
+              "DocumentMoniker": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\app.manifest",
+              "RelativeDocumentMoniker": "USBSDAdapter\\app.manifest",
+              "ToolTip": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\app.manifest",
+              "RelativeToolTip": "USBSDAdapter\\app.manifest",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001203|",
+              "WhenOpened": "2025-03-28T17:27:04.232Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 1,
@@ -28,9 +45,10 @@
               "RelativeDocumentMoniker": "USBSDAdapter\\Vdisk.cs",
               "ToolTip": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\Vdisk.cs",
               "RelativeToolTip": "USBSDAdapter\\Vdisk.cs",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAgwFIAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADcAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-15T17:58:55.596Z"
+              "WhenOpened": "2025-03-15T17:58:55.596Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -40,7 +58,7 @@
               "RelativeDocumentMoniker": "USBSDAdapter\\Program.cs",
               "ToolTip": "C:\\Users\\Surya\\Documents\\projects\\electronics\\USBSDAdapter\\USBSDAdapter\\usb2sd\\USBSDAdapter\\USBSDAdapter\\Program.cs",
               "RelativeToolTip": "USBSDAdapter\\Program.cs",
-              "ViewState": "AgIAAEYBAAAAAAAAAAAvwFcBAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAswGkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-14T04:38:11.507Z",
               "EditorCaption": ""

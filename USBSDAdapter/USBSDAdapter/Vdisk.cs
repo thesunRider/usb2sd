@@ -59,6 +59,8 @@ class Vdisk
         char mountpoint = GetAvailableDriveLetter();
         string script = GenerateDiskPartScriptCreateMount(vhdPath, vhdSizeMB, vhdLabel, mountpoint);
 
+        DismountVDisk(vhdPath);
+
         // Write the script to a temporary file
         string scriptFilePath = Path.Combine(Path.GetTempPath(), "create_vhd_script.txt");
         File.WriteAllText(scriptFilePath, script);

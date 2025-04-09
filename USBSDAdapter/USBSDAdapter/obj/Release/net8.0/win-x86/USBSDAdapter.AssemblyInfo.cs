@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("USBSDAdapter")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ccf14bf560efcd5f64a1d1604f12f5ec32c59455")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+78e5c982a6fbcaab11e143a702f2d9e4e2961bb6")]
 [assembly: System.Reflection.AssemblyProductAttribute("USBSDAdapter")]
 [assembly: System.Reflection.AssemblyTitleAttribute("USBSDAdapter")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

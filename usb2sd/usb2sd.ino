@@ -1,7 +1,9 @@
 
 #include "USBtoSDAdapter.h"
 #include <SPI.h>
-#include <SdFat.h>
+#include <SdFat.h> //Install SDFat
+
+#define PIN_SPI_CS 4 //set this according to your micro sdcard
 
 USB2SD usb2sd;
 

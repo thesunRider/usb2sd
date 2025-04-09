@@ -13,6 +13,11 @@ using System.Text.RegularExpressions;
 using System.Collections;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Drawing;
+using CommandLine;
+using System.Runtime.InteropServices;
+using System.Threading;
+using System.Reflection.Metadata;
+
 
 class USBSDAdapter
 {
@@ -29,7 +34,7 @@ class USBSDAdapter
 
     public const byte DEV_PRINT = 0xBF;
     static string portName = "";  // Change this to your actual COM port
-    static int baudRate_default = 2000000;
+    static int baudRate_default = 0;//115200;
     static byte[] detection_print = new byte[] { ACK_BIT, COMMAND_START_BIT, ACK_BIT, DEV_PRINT, ACK_BIT, DEV_PRINT, COMMAND_END_BIT };
     static byte[] check_print = new byte[] { ACK_BIT, COMMAND_START_BIT, SUBCMD_CHECK_DEV, 0, ACK_BIT };
 
@@ -40,40 +45,127 @@ class USBSDAdapter
     static private ManagementEventWatcher watcher = new ManagementEventWatcher();
     public static Vdisk vdisk_m = new Vdisk();
     public static bool disk_mounted = false;
+    public static string portName_connected = "";
+    public static string logfile_path = "";
+    public static Random rnd = new Random();
+    public static int sessionid;
 
-    static void Main()
+    [DllImport("User32.dll", CharSet = CharSet.Unicode)]
+    public static extern int MessageBox(IntPtr h, string m, string c, int type);
+
+    [DllImport("kernel32.dll")]
+    static extern IntPtr GetConsoleWindow();
+
+    [DllImport("user32.dll")]
+    static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+
+    
+
+    const int SW_HIDE = 0;
+    const int SW_SHOW = 5;
+
+    private static void log_data(string data)
     {
+        string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        Console.WriteLine($"{timestamp} => {data}");
+        File.AppendAllText(logfile_path,$"{timestamp} => {data} \n");
+    }
+
+    public class Options
+    {
+        [Option('b', "baudrate", Required = true, HelpText = "Sets baudrate of USBSDAdapter.")]
+        public int baudrate { get; set; }
+
+        [Option('l', "logfile", Required = true, HelpText = "Sets logfile path.")]
+        public string logfile { get; set; }
+
+        [Option('h', "hide", Required = false, HelpText = "Hides the console.")]
+        public bool hide { get; set; }
+    }
+
+
+    static void Main(string[] args)
+    {
+        sessionid = rnd.Next();
+        var hwnd = GetConsoleWindow();
+        // Hide
+
+        // Show
+       // ShowWindow(hwnd, SW_SHOW);
+        Parser.Default.ParseArguments<Options>(args)
+                  .WithParsed<Options>(o =>
+                  {
+                      
+                      baudRate_default = o.baudrate;
+                      logfile_path = o.logfile;
+
+                      if (o.hide)
+                      {
+                          ShowWindow(hwnd, SW_HIDE);
+                          log_data("Window Hidden.");
+                      }
+
+                  });
+
+        log_data($"Started Session ID: {sessionid}");
+        if (baudRate_default == 0)
+        {
+            log_data("Baudrate not set. Exiting...");
+            Environment.Exit(0);
+        }
+
 
         if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            Console.WriteLine("This program is only supported on Windows.");
+            log_data("This program is only supported on Windows.");
             Environment.Exit(0);
         }
+
+
+        handle_serial_find();
 
         watcher.Query = new WqlEventQuery("SELECT * FROM __InstanceOperationEvent WITHIN 2 WHERE TargetInstance ISA 'Win32_USBControllerDevice'");
         watcher.EventArrived += new EventArrivedEventHandler(DeviceChangedEvent);
         watcher.Start();
 
         Console.CancelKeyPress += new ConsoleCancelEventHandler(CancelKeyPressHandler);
+        AppDomain.CurrentDomain.ProcessExit += (sender, e) => {
+            log_data("\nSystem is shutting down, exiting...");
+        };
 
-        handle_serial_find();
-
+        log_data($"Setting baudrate :{baudRate_default}");
 
         while (true)
         {
-            Thread.Sleep(100);
+            /**
+            if (!card_connected || !disk_mounted)
+            {
+                handle_serial_find();
+                Thread.Sleep(10000);
+                log_data("Looping");
+            }
+            **/
+            Thread.Sleep(10);
         }
+    }
+
+    private static void ShowToast(string title,string content)
+    {
+
+        MessageBox((IntPtr)0, content, title, 0);
     }
 
     private static void CancelKeyPressHandler(object sender, ConsoleCancelEventArgs e)
     {
-        Console.WriteLine("\nCtrl+C detected. Exiting...");
+        log_data("\nCtrl+C detected. Exiting...");
         // Set the Cancel property to true to prevent the default termination of the process
         e.Cancel = true;
         if (card_connected)
             serialPort.Close();
 
         watcher.Stop();
+        vdisk_m.DismountVDisk(path_temp_vdisk);
         Environment.Exit(0);
     }
 
@@ -132,7 +224,7 @@ class USBSDAdapter
             // Check if bytesRead has not increased for noDataTimeout duration
             if ((DateTime.Now - lastReadTime).TotalMilliseconds > noDataTimeout)
             {
-                Console.WriteLine("No data received within the expected time.");
+                log_data("No data received within the expected time.");
                 error = true;
                 break;
             }
@@ -143,7 +235,7 @@ class USBSDAdapter
         // If we didn't get the required number of bytes within timeout, throw an exception
         if (bytesRead < bytesToRead)
         {
-            Console.WriteLine($"Timeout: Could not read the required number of bytes within the specified time. Bytes= {bytesRead} / {bytesToRead}");
+            log_data($"Timeout: Could not read the required number of bytes within the specified time. Bytes= {bytesRead} / {bytesToRead}");
             error = true;
         }
 
@@ -161,9 +253,9 @@ class USBSDAdapter
             // If timeout has expired, throw an exception
             if ((DateTime.Now - startTime).TotalMilliseconds > timeout)
             {
-                throw new Exception($"Timeout occurred while waiting for serial data Bytes read={serialPort.BytesToRead}.");
+                throw new Exception($"Timeout occurred while waiting for serial data Bytes read={serialPort.BytesToRead}/{expectedBytes}.");
             }
-            //Console.WriteLine($"Buffer Size Data ={serialPort.BytesToRead}");
+            //log_data($"Buffer Size Data ={serialPort.BytesToRead}");
             Thread.Sleep(100);
         }
     }
@@ -196,7 +288,7 @@ class USBSDAdapter
         if (responseserial.Item3)
         {
             SPEED_MODE = 0; //slower speed (more accuracy)
-            Console.WriteLine($"Error in response while Reading Card File {name_file},Restarting in 2 sec with SPEED_MODE={SPEED_MODE}..");
+            log_data($"Error in response while Reading Card File {name_file},Restarting in 2 sec with SPEED_MODE={SPEED_MODE}..");
             serialPort.Close();
             serialPort.Open();
             Thread.Sleep(2000);
@@ -219,10 +311,10 @@ class USBSDAdapter
         byte[] file_size2 = buffer.Skip(3).Take(4).ToArray();
         byte[] file_payload = buffer.Skip(8).Take(buffer.Length - 9).ToArray();
 
-        //Console.WriteLine("-----------------BUFFERDOWN");
-        //Console.WriteLine(BitConverter.ToString(buffer).Replace("-", " "));
-        //Console.WriteLine("-----------------PAYLOADDOWN");
-        //Console.WriteLine(BitConverter.ToString(file_payload).Replace("-", " "));
+        //log_data("-----------------BUFFERDOWN");
+        //log_data(BitConverter.ToString(buffer).Replace("-", " "));
+        //log_data("-----------------PAYLOADDOWN");
+        //log_data(BitConverter.ToString(file_payload).Replace("-", " "));
 
 
         if (file_payload.Length != size && size != BitConverter.ToInt32(file_size2, 0))
@@ -287,10 +379,10 @@ class USBSDAdapter
         if (parse.error) throw new Exception("There was an error in response while Reading Card File List");
         string file_list = Encoding.ASCII.GetString(parse.payload);
 
-        Console.WriteLine(file_list);
+        log_data(file_list);
         if (!ValidateFileStructure(file_list))
         {
-            Console.WriteLine("Invalid file list structure.Retrying in 2 sec..");
+            log_data("Invalid file list structure.Retrying in 2 sec..");
             Thread.Sleep(2000);
             goto restart_filelist;
         }
@@ -322,48 +414,44 @@ class USBSDAdapter
             serialPort.WriteTimeout = 1000;  // Set timeout for writing
 
             serialPort.Open();
-            Thread.Sleep(3000);
+            Thread.Sleep(5000);
             card_connected = true;
             serialPort.DiscardInBuffer();
+            log_data($"Connected to COMPORT");
 
+            log_data($"Fetching size");
             int card_size = get_sdcard_size();
+            log_data($"Fetching freesize");
             int card_freesize = get_sdcard_freesize();
-            Console.WriteLine($"Card size={card_freesize} / {card_size} KB");
+            log_data($"Card size={card_freesize} / {card_size} KB");
+            log_data($"Fetching Filelist");
             var filesizeList = get_sdcard_filelist();
 
+            ShowToast("BIO Touch Connected", "Mounting your BIO Touch data, Please wait..");
+
             path_temp_vdisk = Path.Combine(Path.GetTempPath(), "temp_storage.vhd");
-            mount_point = vdisk_m.CreateMountVDisk(path_temp_vdisk, "BIO_TOUCH", 200);
+            mount_point = vdisk_m.CreateMountVDisk(path_temp_vdisk, "BIO_TOUCH", 1000);
             disk_mounted = true;
-
-            //Thread.Sleep(5000);
-            //vdisk_m.DismountVDisk(path_temp_vdisk);
-
+            portName_connected = port;
             foreach (var item in filesizeList)
             {
                 if (item.size < 5) continue;
-                //if (!((item.name).EndsWith(".csv", StringComparison.OrdinalIgnoreCase))) continue; //remove when ready
-                Console.WriteLine($"Pulling Filesize: {item.size} Bytes, FileName: {item.name}");
+                if (!((item.name).EndsWith(".csv", StringComparison.OrdinalIgnoreCase))) continue; //remove when ready
+                log_data($"Pulling Filesize: {item.size} Bytes, FileName: {item.name}");
                 byte[] data_buffer = get_sdcard_filedata(item.name, item.size);
                 File.WriteAllBytes(mount_point + ":\\" + item.name, data_buffer);
-                Console.WriteLine("collecting finished..");
+                log_data("collecting finished..");
 
             }
 
-            Console.WriteLine("Finished collecting files");
+            log_data("Finished collecting files");
+            ShowToast("BIO Touch Mounted", "Succesfully Mounted all your BIO Touch data!");
 
-            //remove when ready
-            /**
-            serialPort.Close();
-            watcher.Stop();
-            if (disk_mounted)
-                vdisk_m.DismountVDisk(path_temp_vdisk);
-            Environment.Exit(0);
-            **/
         }
         catch (Exception ex)
         {
 
-            Console.WriteLine($"Error on Mounting {port} as SD: {ex.Message}");
+            log_data($"Error on Mounting {port} as SD: {ex.Message}");
 
             if (card_connected)
             {
@@ -371,13 +459,13 @@ class USBSDAdapter
                 {
                     byte[] buffer = new byte[1000];
                     int bytesRead = serialPort.Read(buffer, 0, buffer.Length);
-                    Console.WriteLine("Serial dump:");
-                    Console.WriteLine(BitConverter.ToString(buffer).Replace("-", " "));
+                    log_data("Serial dump:");
+                    log_data(BitConverter.ToString(buffer).Replace("-", " "));
                     serialPort.Close();
                 }
                 catch (Exception ex2)
                 {
-                    Console.WriteLine($"Error on Mounting {port} as SD: {ex2.Message}");
+                    log_data($"Error on Mounting {port} as SD: {ex2.Message}");
                 }
 
 
@@ -388,53 +476,78 @@ class USBSDAdapter
                 }
 
                 card_connected = false;
+
+                ShowToast("BIO Touch Error", "Error mounting BIO Touch data, Please replug device again..");
             }
-
-            //serialPort.Write(check_print, 0, check_print.Length);
-            //serialPort.Close();
-
         }
     } 
 
     private static void handle_serial_find()
     {
-        portName = FindMatchingCOMPort(check_print, detection_print);
-        if (portName != null)
-        {   Console.WriteLine($"Matching COM Port Found: {portName}");
-            handle_card_serial(portName);  }
-        else
-            Console.WriteLine("No matching COM port found.");
+        if (!disk_mounted || !card_connected)
+        {
+            portName = FindMatchingCOMPort(check_print, detection_print);
+            if (portName != null) {
+                log_data($"Matching COM Port Found: {portName}");
+                handle_card_serial(portName); }
+            else
+                log_data("No matching COM port found.");
+        }
     }
 
     private static void DeviceChangedEvent(object sender, EventArrivedEventArgs e)
     {
         string eventType = e.NewEvent.ClassPath.ClassName;
 
-        Console.WriteLine("Event type: " + eventType);
+        log_data("Event type: " + eventType);
 
         // COM port change detection
         if (eventType == "__InstanceCreationEvent")
         {
-            Console.WriteLine("A new device was plugged in.");
+            Thread.Sleep(1000);
+            log_data("A new device was plugged in.");
 
-            handle_serial_find();
-        }
-        else if (eventType == "__InstanceDeletionEvent")
-        {
-            if (card_connected && !SerialPort.GetPortNames().Contains(portName)){
+            if (!card_connected)
+            {
+                handle_serial_find();
+                return;
+            }
+
+            if (card_connected && (FindMatchingCOMPort(check_print, detection_print) != portName))
+            {
                 //serial connection lost disconnect and reconnect
                 //unmounting drive
                 if (disk_mounted)
                 {
+                    log_data("Unmounting Vdisk");
                     vdisk_m.DismountVDisk(path_temp_vdisk);
                     disk_mounted = false;
                 }
                 card_connected = false;
             }
 
+        }
+        else if (eventType == "__InstanceDeletionEvent")
+        {
+            Thread.Sleep(1000);
+            string[] ports = SerialPort.GetPortNames();
+            log_data("Available COM Ports:");
+            foreach (string port in ports)
+            {
+                log_data(port);
+                log_data(portName);
+            }
+            if (FindMatchingCOMPort(check_print,detection_print) != portName){
+                //serial connection lost disconnect and reconnect
+                //unmounting drive
 
-
-            Console.WriteLine("A device was unplugged.");
+                    log_data("Unmounting Vdisk");
+                    vdisk_m.DismountVDisk(path_temp_vdisk);
+                    disk_mounted = false;
+                
+                card_connected = false;
+            }
+            log_data("A device was unplugged.");
             handle_serial_find();
         }
     }
@@ -447,19 +560,65 @@ class USBSDAdapter
             {
                 using (SerialPort srlPrt = new SerialPort(port, baudRate_default, Parity.None, 8, StopBits.One))
                 {
-                    Console.WriteLine($"Checking on {port}");
-                    srlPrt.ReadTimeout = 100;   // Set timeout for reading
-                    srlPrt.WriteTimeout = 100;  // Set timeout for writing
+                    log_data($"Checking on {port}");
+                    srlPrt.ReadTimeout = 5000;   // Set timeout for reading
+                    srlPrt.WriteTimeout = 5000;  // Set timeout for writing
                     srlPrt.Open();  // Open the COM port
 
-                    Thread.Sleep(1000);
+
+                    srlPrt.RtsEnable = false;
+                    srlPrt.DtrEnable = false;
+                    log_data("RTS and DTR pulled LOW.");
+
+                    Thread.Sleep(100); // Hold low for 2 seconds (adjust as needed)
+
+                    // Release RTS and DTR (pull high)
+                    srlPrt.RtsEnable = true;
+                    srlPrt.DtrEnable = true;
+
+                    log_data("PHigh, Port Opened Writing data");
+
+                    Thread.Sleep(2000);
+                    log_data($"Pending data1: {srlPrt.BytesToRead}");
+                    log_data(srlPrt.ReadExisting());
                     srlPrt.DiscardInBuffer();  // Clear any existing data
+                    srlPrt.DiscardOutBuffer();
+                    Thread.Sleep(1000);
+
                     srlPrt.Write(sendBytes, 0, sendBytes.Length);  // Send test byte(s)
 
                     byte[] buffer = new byte[expectedResponse.Length];
-                    Thread.Sleep(1000);  
+                    Thread.Sleep(4000);  
+
+                    /**
+                    //debug start----------------
+                    log_data($"Pending data2: {srlPrt.BytesToRead}");
+                    string str_read = srlPrt.ReadExisting();
+                    log_data(str_read);
+
+
+                    bool equals_in = Encoding.ASCII.GetBytes(str_read).SequenceEqual(expectedResponse); 
+                    if(equals_in)   
+                        log_data("Matching cases");
+                    else
+                        log_data("Not Matching cases");
+
+                    
+
+                    // Print each byte in the array
+                    log_data("Byte array:");
+                    foreach (byte b in Encoding.ASCII.GetBytes(str_read))
+                    {
+                        Console.Write(b + ":");
+                    }
+
+                    log_data(BitConverter.ToString(expectedResponse).Replace("-", " "));
+                    log_data("tcode");
+                    //debug end------------------
+                    **/
+
                     int bytesRead = srlPrt.Read(buffer, 0, buffer.Length);  // Read response
-                    Console.WriteLine(BitConverter.ToString(buffer).Replace("-", " "));
+                    log_data(BitConverter.ToString(buffer).Replace("-", " "));
                     if (bytesRead == expectedResponse.Length && CompareArrays(buffer, expectedResponse))
                     {
                         srlPrt.Close();
@@ -469,7 +628,7 @@ class USBSDAdapter
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error on {port}: {ex.Message}");
+                log_data($"Error on {port}: {ex.Message}");
             }
         }
         return null;  // No matching COM port found

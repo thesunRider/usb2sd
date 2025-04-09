@@ -407,3 +407,4 @@ C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\U
 C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\USBSDAdapter\USBSDAdapter\obj\Release\net8.0\win-x86\USBSDAdapter.pdb
 C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\USBSDAdapter\USBSDAdapter\obj\Release\net8.0\win-x86\USBSDAdapter.genruntimeconfig.cache
 C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\USBSDAdapter\USBSDAdapter\obj\Release\net8.0\win-x86\ref\USBSDAdapter.dll
+C:\Users\Surya\Documents\projects\electronics\USBSDAdapter\USBSDAdapter\usb2sd\USBSDAdapter\USBSDAdapter\bin\Release\net8.0\win-x86\CommandLine.dll
