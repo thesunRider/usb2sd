@@ -3,6 +3,13 @@
 ## Overview
 USB2SD is a USB-to-SD card library for Arduino (UNO, Nano, Mega) that enables mounting an SD card connected to an Arduino as a removable media device on a PC via Serial communication. Essentially, this method emulates a Mass Storage Device through Arduinos that lack native USB capabilities, allowing users to access and transfer files seamlessly.
 
+## Demo Video
+
+
+https://github.com/user-attachments/assets/e09464e0-bb34-4e84-815c-b154b5495770
+
+
+
 ## Features
 - Supports Arduino boards without native USB support (UNO, Nano, Mega, etc.).
 - Mounts an SD card connected to Arduino as a removable drive on a PC.
@@ -47,8 +54,6 @@ USB2SD is a USB-to-SD card library for Arduino (UNO, Nano, Mega) that enables mo
 ## License
 This project is open-source. Feel free to contribute and improve performance!
 
-## Credits
-Developed by [Your Name]. Contributions and feedback are welcome!
 
 ---
 For further assistance or issues, please open an issue in the repository.
